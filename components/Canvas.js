@@ -1,4 +1,4 @@
-import { forwardRef } from 'React';
+import { forwardRef } from 'react';
 import { ReactSketchCanvas } from 'react-sketch-canvas';
 
 const CanvasReact = forwardRef((props, ref) => {
