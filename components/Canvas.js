@@ -1,8 +1,7 @@
-import { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import { ReactSketchCanvas } from 'react-sketch-canvas';
 
 const CanvasReact = forwardRef((props, ref) => {
-
     const styles = {
         border: '2px solid gray',
         borderRadius: '3px'
@@ -21,5 +20,6 @@ const CanvasReact = forwardRef((props, ref) => {
         />
     )
 });
+CanvasReact.displayName = "canvasReact";
 
 export default CanvasReact;
