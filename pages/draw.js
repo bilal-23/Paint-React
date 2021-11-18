@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Button from "../components/Button";
 import CanvasReact from "../components/Canvas";
 import Navbar from "../components/Navbar";
-import useWindowDimensions from "../hooks/use-WindowDimension";
+import useWindowDimensions from "../hooks/usewindowDimension";
 import classes from './draw.module.css';
 
 export default function Draw() {
