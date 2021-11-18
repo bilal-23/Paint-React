@@ -1,0 +1,122 @@
+.canvas_container {
+  padding: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.canvas {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.controls_group {
+  display: flex;
+  margin-bottom: 1rem;
+  padding: 0rem 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+.save_btn {
+  border: 2px solid thistle;
+  border-radius: 5px;
+  padding: 0.4rem 1rem;
+  font-size: 2rem;
+  font-weight: 300;
+  background: transparent;
+  cursor: pointer;
+}
+.undo_redo_clear {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.undo_redo_clear img {
+  width: 3rem;
+  cursor: pointer;
+}
+.undo_redo_clear img:active {
+  transform: scale(1.1);
+}
+.controls {
+  width: 100%;
+  flex: 1;
+}
+.control_heading {
+  text-align: center;
+  font-size: 4rem;
+  font-weight: 500;
+  margin-top: -5rem;
+}
+.canvas_controls {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 5rem;
+  padding-right: 2rem;
+}
+.canvas_control_group {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+.canvas_control_group label {
+  font-size: 1.5rem;
+}
+.range {
+  width: 50%;
+}
+.range_value {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  width: 3rem;
+  background-color: rgb(32, 27, 32);
+  border-radius: 50%;
+  color: white;
+  font-size: 1.5rem;
+}
+/* .range::-webkit-slider-runnable-track {
+  background-color: thistle;
+  height: 5px;
+}
+.range::-webkit-slider-thumb {
+  width: 5px;
+  background-color: #fff;
+  color: red;
+} */
+
+@media only screen and (max-width: 1100px) {
+  .canvas_container {
+    flex-direction: column;
+    gap: 4rem;
+  }
+  .control_heading {
+    margin-top: 0;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .canvas_container {
+    padding: 5rem 2rem;
+    flex-direction: column;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .canvas_container {
+    padding: 5rem 1rem;
+    flex-direction: column;
+  }
+  .canvas_controls {
+    padding: 2rem;
+  }
+  .undo_redo_clear img {
+    width: 2rem;
+    cursor: pointer;
+  }
+  .canvas_control_group {
+    display: flex;
+    gap: 1rem;
+  }
+}
