@@ -32,8 +32,12 @@
   animation: bn54storm 0.7s ease-in-out both;
   animation-delay: 0.06s;
 }
+.btn:active .btn_span {
+  animation: bn54storm 0.7s ease-in-out both;
+  animation-delay: 0.06s;
+}
 .btn:active {
-  background: rgb(255, 235, 235);
+  animation: bn54rotate 0.7s ease-in-out both;
 }
 
 @keyframes bn54rotate {

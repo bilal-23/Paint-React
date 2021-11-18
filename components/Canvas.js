@@ -1,9 +1,7 @@
-import { forwardRef, useState } from 'React';
+import { forwardRef } from 'React';
 import { ReactSketchCanvas } from 'react-sketch-canvas';
-import useWindowDimensions from '../hooks/use-WindowDimension';
 
 const CanvasReact = forwardRef((props, ref) => {
-    const dimensions = useWindowDimensions();
 
     const styles = {
         border: '2px solid gray',
