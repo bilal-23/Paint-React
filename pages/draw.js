@@ -162,8 +162,8 @@ export default function Draw() {
                         </div>
                         <div className={`${classes.canvas_control_group} ${classes.canvas_control_export}`}>
                             <label htmlFor="export"> Export as: </label>
-                            <Button onClick={downloadCanvas.bind(null, 'jpg')}>PNG</Button>
-                            <Button onClick={downloadCanvas.bind(null, 'jpg')}>SVG</Button>
+                            <Button onClick={downloadCanvas.bind(null, 'png')}>PNG</Button>
+                            <Button onClick={downloadCanvas.bind(null, 'svg')}>SVG</Button>
                         </div>
                         <div className={`${classes.canvas_control_group} ${classes.reset_canvas}`}>
                             <Button reset={true} onClick={canvasHandler.bind(null, 'reset')}>Reset Canvas</Button>
