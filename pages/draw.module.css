@@ -77,6 +77,10 @@
   color: white;
   font-size: 1.5rem;
 }
+.range_value:nth-child(3) {
+  height: 5rem;
+  width: 5rem;
+}
 /* .range::-webkit-slider-runnable-track {
   background-color: thistle;
   height: 5px;

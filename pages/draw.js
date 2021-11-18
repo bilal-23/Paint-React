@@ -8,7 +8,6 @@ import classes from './draw.module.css';
 export default function Draw() {
     const canvasRef = useRef();
     const dimensions = useWindowDimensions();
-    console.log(dimensions);
     const [canvasWidth, setCanvasWidth] = useState();
     const [strokeColor, setStrokeColor] = useState('#000');
     const [strokeWidth, setStrokWidth] = useState("4");
@@ -18,32 +17,35 @@ export default function Draw() {
 
     useEffect(() => {
         const width = dimensions?.width;
-        if (width) {
-            if (width < 1100) {
-                setCanvasWidth("800px")
-            }
-            if (width < 900) {
-                setCanvasWidth("700px")
-
-            }
-            if (width < 700) {
-                setCanvasWidth("600px")
-            }
-            if (width < 600) {
-                setCanvasWidth("500px")
-            }
-            if (width < 500) {
-                setCanvasWidth("400px")
-            }
-            if (width < 450) {
-                setCanvasWidth("425px")
-            }
-            if (width < 400) {
-                setCanvasWidth("300px")
-            }
+        if (!width) return;
+        if (width > 1100) {
+            setCanvasWidth("800px")
+        }
+        if (width < 1100) {
+            setCanvasWidth("800px")
+        }
+        if (width < 900) {
+            setCanvasWidth("700px")
 
         }
+        if (width < 700) {
+            setCanvasWidth("600px")
+        }
+        if (width < 600) {
+            setCanvasWidth("500px")
+        }
+        if (width < 500) {
+            setCanvasWidth("400px")
+        }
+        if (width < 450) {
+            setCanvasWidth("425px")
+        }
+        if (width < 400) {
+            setCanvasWidth("300px")
+        }
+
     }, [dimensions])
+
 
     // UNDO REDO CLEAR FUNCTION
     function canvasHandler(property) {
@@ -60,6 +62,7 @@ export default function Draw() {
         }
     }
 
+
     // WIDTH COLOR and other stuff
     function changeCanvasProps(e, property) {
         switch (property) {
@@ -71,6 +74,7 @@ export default function Draw() {
                 break;
         }
     }
+
 
     // DOwnload
     function downloadCanvas(ImgType) {
@@ -87,6 +91,7 @@ export default function Draw() {
         setEraserMode(prevState => !prevState);
         canvasRef.current.eraseMode(eraserMode);
     }
+
     return (
         <>
             <Navbar />
@@ -133,7 +138,6 @@ export default function Draw() {
                             <input id="eraserWidth" type="range" min="1" max="20" step="1" value={eraserWidth} onChange={(e) => changeCanvasProps(e, 'eraserWidth')} className={classes.range} />
                             <span className={classes.range_value}>{eraserWidth}</span>
                         </div>
-
                     </div>
                 </div>
             </div>
