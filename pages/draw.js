@@ -8,6 +8,7 @@ import classes from './draw.module.css';
 export default function Draw() {
     const canvasRef = useRef();
     const dimensions = useWindowDimensions();
+    console.log(dimensions);
     const [canvasWidth, setCanvasWidth] = useState();
     const [strokeColor, setStrokeColor] = useState('#000');
     const [strokeWidth, setStrokWidth] = useState("4");
@@ -40,8 +41,9 @@ export default function Draw() {
             if (width < 400) {
                 setCanvasWidth("300px")
             }
+
         }
-    }, [dimensions?.width])
+    }, [dimensions])
 
     // UNDO REDO CLEAR FUNCTION
     function canvasHandler(property) {
