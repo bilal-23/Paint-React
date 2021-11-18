@@ -8,6 +8,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  cursor: pointer;
 }
 .controls_group {
   display: flex;
@@ -33,6 +34,10 @@
 .undo_redo_clear img {
   width: 3rem;
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+.undo_redo_clear img:hover {
+  border-bottom: 2px solid black;
 }
 .undo_redo_clear img:active {
   transform: scale(1.1);
@@ -58,13 +63,15 @@
 .canvas_control_group {
   display: flex;
   gap: 2rem;
+  width: 100%;
   align-items: center;
 }
 .canvas_control_group label {
   font-size: 1.5rem;
+  min-width: 20%;
 }
 .range {
-  width: 50%;
+  width: 70%;
 }
 .range_value {
   display: flex;
@@ -81,6 +88,7 @@
   height: 5rem;
   width: 5rem;
 }
+
 /* .range::-webkit-slider-runnable-track {
   background-color: thistle;
   height: 5px;
@@ -106,11 +114,17 @@
     padding: 5rem 2rem;
     flex-direction: column;
   }
+  .range {
+    width: 50%;
+  }
 }
 @media only screen and (max-width: 600px) {
   .canvas_container {
     padding: 5rem 1rem;
     flex-direction: column;
+  }
+  .undo_redo_clear {
+    gap: 1rem;
   }
   .canvas_controls {
     padding: 2rem;
@@ -118,6 +132,9 @@
   .undo_redo_clear img {
     width: 2rem;
     cursor: pointer;
+  }
+  .range {
+    width: 40%;
   }
   .canvas_control_group {
     display: flex;

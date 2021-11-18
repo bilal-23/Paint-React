@@ -1,4 +1,5 @@
 import classes from './Navbar.module.css';
+import Link from 'next/link'
 
 export default function Navbar() {
     return (
@@ -9,7 +10,9 @@ export default function Navbar() {
             </div>
             <div className={classes.right}>
                 <a href="#">Home</a>
-                <a href="#" className={classes.btn}>Try it now</a>
+                <Link href="/draw">
+                    <a><p href="#" className={classes.btn}>Try it now</p>
+                    </a></Link>
             </div>
 
         </header>

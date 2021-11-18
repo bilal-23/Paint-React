@@ -15,6 +15,7 @@ export default function Draw() {
     const [eraserWidth, setEraserWidth] = useState("4");
     const [eraserMode, setEraserMode] = useState(false);
 
+    //Set canvas width according to window width
     useEffect(() => {
         const width = dimensions?.width;
         if (!width) return;
@@ -49,6 +50,7 @@ export default function Draw() {
 
     // UNDO REDO CLEAR FUNCTION
     function canvasHandler(property) {
+        console.log(canvasRef.current)
         switch (property) {
             case 'undo':
                 canvasRef.current.undo();
@@ -58,6 +60,10 @@ export default function Draw() {
                 break;
             case 'clear':
                 canvasRef.current.clearCanvas();
+                deactivateEraserHandler();
+                break;
+            case 'reset':
+                canvasRef.current.resetCanvas();
                 break;
         }
     }
@@ -72,9 +78,14 @@ export default function Draw() {
             case 'eraserWidth':
                 setEraserWidth(e.target.value)
                 break;
+            case 'strokeColor':
+                setStrokeColor(e.target.value);
+                break;
+            case 'canvasColor':
+                setCanvasColor(e.target.value);
+                break;
         }
     }
-
 
     // DOwnload
     function downloadCanvas(ImgType) {
@@ -87,11 +98,16 @@ export default function Draw() {
             document.body.removeChild(link)
         }).catch(e => alert(e.message));
     }
-    function eraseCanvasHandler() {
-        setEraserMode(prevState => !prevState);
-        canvasRef.current.eraseMode(eraserMode);
+    // Active Eraser
+    function activateEraserHandler() {
+        canvasRef.current.eraseMode(true);
+        setEraserMode(true)
     }
-
+    //Activate Pen
+    function deactivateEraserHandler() {
+        canvasRef.current.eraseMode(false);
+        setEraserMode(false)
+    }
     return (
         <>
             <Navbar />
@@ -105,8 +121,10 @@ export default function Draw() {
                             {/* REDO BUTTON */}
                             <img src="./redo.png" alt="Redo" onClick={canvasHandler.bind(null, 'redo')} />
 
-                            {eraserMode && <img src="./eraser.png" alt="Erase Canvas" onClick={canvasHandler.bind(null, 'erase')} />}
-                            {!eraserMode && <img src="./paintbrush.png" alt="Erase Canvas" onClick={eraseCanvasHandler} />}
+                            {!eraserMode && <img src="./eraser.png" alt="Erase Canvas" onClick={activateEraserHandler} />}
+                            {eraserMode && <img src="./eraser-active.png" alt="Erase Canvas" onClick={activateEraserHandler} />}
+                            {eraserMode && <img src="./paintbrush.png" alt="Erase Canvas" onClick={deactivateEraserHandler} />}
+                            {!eraserMode && <img src="./paintbrush-active.png" alt="Erase Canvas" onClick={deactivateEraserHandler} />}
 
                             {/* CLEAR CANVAS */}
                             <img src="./clear.png" alt="Clear Canvas" onClick={canvasHandler.bind(null, 'clear')} />
@@ -137,6 +155,18 @@ export default function Draw() {
                             <label htmlFor="eraserWidth">Eraser Width :</label>
                             <input id="eraserWidth" type="range" min="1" max="20" step="1" value={eraserWidth} onChange={(e) => changeCanvasProps(e, 'eraserWidth')} className={classes.range} />
                             <span className={classes.range_value}>{eraserWidth}</span>
+                        </div>
+                        <div className={classes.canvas_control_group}>
+                            <label htmlFor="strokeColor">Stroke Color :</label>
+                            <input id="strokeColor" type="color" value={strokeColor} onChange={(e) => changeCanvasProps(e, 'strokeColor')} />
+                        </div>
+                        <div className={`${classes.canvas_control_group} ${classes.canvas_control_export}`}>
+                            <label htmlFor="export"> Export as: </label>
+                            <Button onClick={downloadCanvas.bind(null, 'jpg')}>PNG</Button>
+                            <Button onClick={downloadCanvas.bind(null, 'jpg')}>SVG</Button>
+                        </div>
+                        <div className={`${classes.canvas_control_group} ${classes.reset_canvas}`}>
+                            <Button reset={true} onClick={canvasHandler.bind(null, 'reset')}>Reset Canvas</Button>
                         </div>
                     </div>
                 </div>

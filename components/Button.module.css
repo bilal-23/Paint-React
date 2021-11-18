@@ -40,6 +40,33 @@
   animation: bn54rotate 0.7s ease-in-out both;
 }
 
+/* RESET BUTTON */
+.reset_btn {
+  background-color: red;
+  border: none;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+.reset_btn span {
+  color: white !important;
+}
+.reset_btn:hover {
+  animation: none;
+}
+
+.reset_btn:hover span {
+  animation: none;
+}
+.reset_btn:active .btn_span {
+  animation: none;
+}
+.reset_btn:active {
+  animation: none;
+}
+.reset_btn:active {
+  transform: scale(1.01);
+}
+
 @keyframes bn54rotate {
   0% {
     transform: rotate(0deg) translate3d(0, 0, 0);
@@ -73,5 +100,21 @@
   }
   100% {
     transform: translate3d(0, 0, 0) translateZ(0);
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .btn {
+    height: 35px;
+    max-width: 110px;
+  }
+  .reset_btn {
+    height: 45px;
+    max-width: 100%;
+    background-color: red;
+    border: none;
+  }
+  .reset_btn span {
+    color: white !important;
   }
 }
