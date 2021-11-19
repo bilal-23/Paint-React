@@ -8,6 +8,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/lab": "^4.0.0-alpha.60",
+    "@mui/material": "^5.1.1",
     "@reduxjs/toolkit": "^1.6.2",
     "bcryptjs": "^2.4.3",
     "mongodb": "^4.2.0",
