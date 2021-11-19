@@ -11,11 +11,11 @@
   cursor: pointer;
 }
 .controls_group {
+  user-select: none;
   display: flex;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   padding: 0rem 1rem;
   align-items: center;
-  justify-content: space-between;
 }
 .save_btn {
   border: 2px solid thistle;
@@ -29,6 +29,7 @@
 .undo_redo_clear {
   display: flex;
   align-items: center;
+  width: 100%;
   gap: 1.5rem;
 }
 .undo_redo_clear img {
@@ -123,6 +124,7 @@
     padding: 5rem 1rem;
     flex-direction: column;
   }
+
   .undo_redo_clear {
     gap: 1rem;
   }
@@ -130,7 +132,7 @@
     padding: 2rem;
   }
   .undo_redo_clear img {
-    width: 2rem;
+    width: 3rem;
     cursor: pointer;
   }
   .range {

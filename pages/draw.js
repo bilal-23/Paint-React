@@ -47,7 +47,6 @@ export default function Draw() {
 
     }, [dimensions])
 
-
     // UNDO REDO CLEAR FUNCTION
     function canvasHandler(property) {
         console.log(canvasRef.current)
@@ -89,6 +88,15 @@ export default function Draw() {
 
     // DOwnload
     function downloadCanvas(ImgType) {
+        // Download as svg
+        if (ImgType === 'svg') {
+            canvasRef.current.exportSvg().then(data => {
+                console.log(data);
+            }).catch(e => alert(e.message));
+            return;
+        }
+
+        //Download as png or jpg
         canvasRef.current.exportImage(ImgType).then(data => {
             const link = document.createElement('a')
             link.href = data
@@ -98,6 +106,7 @@ export default function Draw() {
             document.body.removeChild(link)
         }).catch(e => alert(e.message));
     }
+
     // Active Eraser
     function activateEraserHandler() {
         canvasRef.current.eraseMode(true);
@@ -112,10 +121,9 @@ export default function Draw() {
         <>
             <Navbar />
             <div className={classes.canvas_container}>
-                <div className={classes.canvas}>
+                <div className={classes.canvas_left}>
                     <div className={classes.controls_group}>
                         <div className={classes.undo_redo_clear}>
-
                             {/* UNDO BUTTON */}
                             <img src="./undo.png" alt="Undo" onClick={canvasHandler.bind(null, 'undo')} />
                             {/* REDO BUTTON */}
@@ -129,20 +137,21 @@ export default function Draw() {
                             {/* CLEAR CANVAS */}
                             <img src="./clear.png" alt="Clear Canvas" onClick={canvasHandler.bind(null, 'clear')} />
                         </div>
-                        {/* DOWNLOAD CANVAS */}
-                        <div className={classes.save_img}>
-                            <Button onClick={downloadCanvas.bind(null, 'jpg')}>Export as JPG</Button>
-                        </div>
                     </div>
-                    <CanvasReact
-                        width={canvasWidth}
-                        height="500px"
-                        strokeColor={strokeColor}
-                        strokeWidth={strokeWidth}
-                        canvasColor={canvasColor}
-                        eraserWidth={eraserWidth}
-                        ref={canvasRef} />
+                    <div className={classes.canvas}>
+                        <CanvasReact
+                            width={canvasWidth}
+                            height="500px"
+                            strokeColor={strokeColor}
+                            strokeWidth={strokeWidth}
+                            canvasColor={canvasColor}
+                            eraserWidth={eraserWidth}
+                            ref={canvasRef} />
+                    </div>
+
                 </div>
+
+                {/* CONTROLS */}
                 <div className={classes.controls}>
                     <p className={classes.control_heading}>Options</p>
                     <div className={classes.canvas_controls}>
