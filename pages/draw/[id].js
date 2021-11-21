@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { useSession } from 'next-auth/client';
+import { getSession, useSession } from "next-auth/client"
+import { ObjectID } from "bson";
 import Button from "../../components/Button";
 import CanvasReact from "../../components/Canvas";
 import Navbar from "../../components/Navbar";
@@ -7,8 +8,10 @@ import useWindowDimensions from "../../hooks/usewindowDimension";
 import classes from './draw.module.css';
 import AlertToaster from "../../components/AlertToaster";
 import Spinner from "../../components/Spinner";
+import { connectToDatabase } from "../../util/database";
 
-export default function Draw() {
+export default function DrawItem(props) {
+    const project = JSON.parse(props?.project);
     const canvasRef = useRef();
     const canvasNameRef = useRef();
     const dimensions = useWindowDimensions();
@@ -57,6 +60,12 @@ export default function Draw() {
 
     }, [dimensions])
 
+    // LOAD CANVAS PATHS\
+    useEffect(() => {
+        const path = (project[0].path)
+        canvasRef.current.loadPaths(path);
+    }, [])
+
     //Unmount toaster
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -83,7 +92,7 @@ export default function Draw() {
             const path = await canvasRef.current.exportPaths()
             const res = await fetch('/api/saveCanvas', {
                 method: 'POST',
-                body: JSON.stringify({ email: session.user.email, path: path, name: canvasName, time: new Date() }),
+                body: JSON.stringify({ email: session.user.email, path: path, name: canvasName, time: new Date(), id: project[0]._id }),
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -176,25 +185,25 @@ export default function Draw() {
             <div className={classes.canvas_name}>
                 {!editName && <span>{canvasName}</span>}
                 <input type="text" ref={canvasNameRef} placeholder="Enter Name" style={{ visibility: `${editName ? 'visible' : 'hidden'}`, display: `${editName ? 'block' : 'none'}` }} ></input>
-                {!editName && <img src="./edit.png" alt="Edit" onClick={() => { setEditName(true); canvasNameRef.current.focus() }} />}
-                {editName && <img src="./savename.png" alt="Save" onClick={() => updateName()} />}
+                {!editName && <img src="/edit.png" alt="Edit" onClick={() => { setEditName(true); canvasNameRef.current.focus() }} />}
+                {editName && <img src="/savename.png" alt="Save" onClick={() => updateName()} />}
             </div>
             <div className={classes.canvas_container}>
                 <div className={classes.canvas_left}>
                     <div className={classes.controls_group}>
                         <div className={classes.undo_redo_clear}>
                             {/* UNDO BUTTON */}
-                            <img src="./undo.png" alt="Undo" onClick={canvasHandler.bind(null, 'undo')} />
+                            <img src="/undo.png" alt="Undo" onClick={canvasHandler.bind(null, 'undo')} />
                             {/* REDO BUTTON */}
-                            <img src="./redo.png" alt="Redo" onClick={canvasHandler.bind(null, 'redo')} />
+                            <img src="/redo.png" alt="Redo" onClick={canvasHandler.bind(null, 'redo')} />
 
-                            {!eraserMode && <img src="./eraser.png" alt="Erase Canvas" onClick={activateEraserHandler} />}
-                            {eraserMode && <img src="./eraser-active.png" alt="Erase Canvas" onClick={activateEraserHandler} />}
-                            {eraserMode && <img src="./paintbrush.png" alt="Erase Canvas" onClick={deactivateEraserHandler} />}
-                            {!eraserMode && <img src="./paintbrush-active.png" alt="Erase Canvas" onClick={deactivateEraserHandler} />}
+                            {!eraserMode && <img src="/eraser.png" alt="Erase Canvas" onClick={activateEraserHandler} />}
+                            {eraserMode && <img src="/eraser-active.png" alt="Erase Canvas" onClick={activateEraserHandler} />}
+                            {eraserMode && <img src="/paintbrush.png" alt="Erase Canvas" onClick={deactivateEraserHandler} />}
+                            {!eraserMode && <img src="/paintbrush-active.png" alt="Erase Canvas" onClick={deactivateEraserHandler} />}
 
                             {/* CLEAR CANVAS */}
-                            <img src="./clear.png" alt="Clear Canvas" onClick={canvasHandler.bind(null, 'clear')} />
+                            <img src="/clear.png" alt="Clear Canvas" onClick={canvasHandler.bind(null, 'clear')} />
                         </div>
                     </div>
                     <div className={classes.canvas}>
@@ -244,4 +253,49 @@ export default function Draw() {
             </div>
         </>
     )
+}
+
+export async function getServerSideProps(context) {
+    const session = await getSession({ req: context.req });
+    const { id } = context.params;
+    if (!session) {
+        return {
+            redirect: {
+                destination: '/auth',
+                permanent: false
+            }
+        }
+    }
+    if (session) {
+        let client;
+        let project;
+        try {
+            client = await connectToDatabase();
+            if (!client) throw new Error('Database Connection Failed');
+        }
+        catch (error) {
+            client?.close();
+            return {
+                props: { error: error.message }
+            }
+        }
+
+        try {
+            const db = client.db();
+            project = await db.collection('canvasPaths').find({ email: session.user.email, _id: ObjectID(id) }).sort({ timestamp: -1 }).toArray();
+            client.close();
+            return {
+                props: { project: JSON.stringify(project) },
+            }
+        }
+        catch (error) {
+            client.close();
+            return {
+                props: {
+                    error: error.message
+                }
+            }
+        }
+
+    }
 }

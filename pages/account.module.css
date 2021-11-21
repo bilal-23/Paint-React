@@ -1,0 +1,66 @@
+.header {
+  padding: 5rem 0;
+  margin: 0 5rem;
+  padding-bottom: 0;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid thistle;
+}
+.header h1 {
+  font-size: 4rem;
+  color: rgb(156, 102, 102);
+}
+.logout {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: rgba(0, 0, 0, 0.5);
+}
+.new_art {
+  padding: 2rem 5rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.new_art > p {
+  gap: 1rem;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  font-size: 3rem;
+}
+.new_art > p > img {
+  width: 3rem;
+}
+.user_art_list {
+  padding: 2rem 5rem;
+}
+@media only screen and (max-width: 900px) {
+  .header {
+    padding: 5rem 0;
+    padding-bottom: 0;
+    margin: 0 2rem;
+  }
+  .header h1 {
+    font-size: 3rem;
+  }
+  .new_art,
+  .user_art_list {
+    padding: 2rem 2rem;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .header {
+    padding: 5rem 0rem;
+    padding-bottom: 0;
+    margin: 0 1rem;
+  }
+  .new_art,
+  .user_art_list {
+    padding: 2rem 1rem;
+  }
+}

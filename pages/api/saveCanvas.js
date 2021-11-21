@@ -7,6 +7,9 @@ export default async function handler(req, res) {
     }
     const path = req.body.path;
     const email = req.body.email;
+    const time = req.body.time;
+    const name = req.body.name;
+
 
     //connecting to data
     let client;
@@ -23,7 +26,7 @@ export default async function handler(req, res) {
     // save paths to db
     try {
         const db = client.db();
-        const result = await db.collection('canvasPaths').insertOne({ path: path, email: email });
+        const result = await db.collection('canvasPaths').insertOne({ path: path, email: email, name: name, time: time });
         client.close();
         res.status(201).json({ message: 'Saved', error: null, result: result });
     }
