@@ -36,8 +36,8 @@ export default function Auth() {
     }
     // Reset input fields
     function resetInputFields() {
-        emailRef?.current?.value = "";
-        passwordRef.current?.value = "";
+        emailRef.current.value = "";
+        passwordRef.current.value = "";
     }
 
 
@@ -110,6 +110,9 @@ export default function Auth() {
         resetInputFields();
     }
 
+    function demoUserSignIn() {
+        logIn('test@react.com', '123456789');
+    }
     return (
         <>
             {error && <AlertToaster severity="error" className="alert">{error}</AlertToaster>}
@@ -131,9 +134,9 @@ export default function Auth() {
                     <div className={classes.form_input_group}>
                         <Button type="submit" authBtn={true} >{isLogin ? 'Sign In' : 'Create Account'}</Button>
                     </div>
-                    {/* <div className={classes.form_input_group}>
-                        <Button onClick={demoUserSignIn} type="button" tall={true}>{'Demo User'}</Button>
-                    </div> */}
+                    <div className={classes.form_input_group}>
+                        <Button onClick={demoUserSignIn} authBtn={true} type="button" tall={true}>{'Demo User'}</Button>
+                    </div>
                 </form>
                 <div className={classes.auth_change}>
                     {isLogin && <p>Don&apos;t have an account? <span onClick={toggleHandler}>Create One</span></p>}
