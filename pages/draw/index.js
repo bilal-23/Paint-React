@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import Button from "../components/Button";
-import CanvasReact from "../components/Canvas";
-import Navbar from "../components/Navbar";
-import useWindowDimensions from "../hooks/usewindowDimension";
+import { useSession } from 'next-auth/client';
+import Button from "../../components/Button";
+import CanvasReact from "../../components/Canvas";
+import Navbar from "../../components/Navbar";
+import useWindowDimensions from "../../hooks/usewindowDimension";
 import classes from './draw.module.css';
 
 export default function Draw() {
     const canvasRef = useRef();
+    const canvasNameRef = useRef();
     const dimensions = useWindowDimensions();
     const [canvasWidth, setCanvasWidth] = useState();
     const [strokeColor, setStrokeColor] = useState('#000');
@@ -14,6 +16,9 @@ export default function Draw() {
     const [canvasColor, setCanvasColor] = useState('White');
     const [eraserWidth, setEraserWidth] = useState("4");
     const [eraserMode, setEraserMode] = useState(false);
+    const [editName, setEditName] = useState(false);
+    const [canvasName, setCanvasName] = useState("Draft");
+    const [session, loading] = useSession();
 
     //Set canvas width according to window width
     useEffect(() => {
@@ -47,6 +52,33 @@ export default function Draw() {
 
     }, [dimensions])
 
+    // EDIT NAME
+    function updateName() {
+        const name = canvasNameRef.current.value.trim();
+        if (!name) return;
+        setCanvasName(name);
+        setEditName(false);
+    }
+    // SAVE CANVAS TO DB
+    async function saveToDB() {
+        try {
+            const path = await canvasRef.current.exportPaths()
+
+            const res = await fetch('/api/saveCanvas', {
+                method: 'POST',
+                body: JSON.stringify({ email: session.user.email, path: path }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            const data = await res.json();
+            console.log(data);
+        }
+        catch (err) {
+            console.log(err)
+        }
+
+    }
     // UNDO REDO CLEAR FUNCTION
     function canvasHandler(property) {
         console.log(canvasRef.current)
@@ -117,9 +149,16 @@ export default function Draw() {
         canvasRef.current.eraseMode(false);
         setEraserMode(false)
     }
+
     return (
         <>
             <Navbar />
+            <div className={classes.canvas_name}>
+                {!editName && <span>{canvasName}</span>}
+                <input type="text" ref={canvasNameRef} placeholder="Enter Name" style={{ visibility: `${editName ? 'visible' : 'hidden'}`, display: `${editName ? 'block' : 'none'}` }} ></input>
+                {!editName && <img src="./edit.png" alt="Edit" onClick={() => { setEditName(true); canvasNameRef.current.focus() }} />}
+                {editName && <img src="./savename.png" alt="Save" onClick={() => updateName()} />}
+            </div>
             <div className={classes.canvas_container}>
                 <div className={classes.canvas_left}>
                     <div className={classes.controls_group}>
@@ -177,6 +216,9 @@ export default function Draw() {
                         <div className={`${classes.canvas_control_group} ${classes.reset_canvas}`}>
                             <Button reset={true} onClick={canvasHandler.bind(null, 'reset')}>Reset Canvas</Button>
                         </div>
+                        {session && <div className={`${classes.canvas_control_group} ${classes.save_canvas}`}>
+                            <Button saveToDB={true} onClick={saveToDB}>Save</Button>
+                        </div>}
                     </div>
                 </div>
             </div>

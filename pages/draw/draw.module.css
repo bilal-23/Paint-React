@@ -1,3 +1,34 @@
+/* Canvas Name */
+.canvas_name {
+  padding: 1rem 5rem;
+  height: 5rem;
+  padding-bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.canvas_name span {
+  font-size: 2rem;
+  text-align: center;
+  border-bottom: 2px solid black;
+}
+.canvas_name img {
+  height: 2rem;
+  cursor: pointer;
+}
+.canvas_name input {
+  font-size: 2rem;
+  min-width: 7rem;
+  border: none;
+  border-bottom: 2px solid black;
+}
+.canvas_name input:focus-visible {
+  border: none;
+  outline: none;
+  border-bottom: 2px solid black;
+}
+
 .canvas_container {
   padding: 5rem;
   display: flex;
@@ -36,9 +67,6 @@
   width: 3rem;
   cursor: pointer;
   transition: all 0.3s ease;
-}
-.undo_redo_clear img:hover {
-  border-bottom: 2px solid black;
 }
 .undo_redo_clear img:active {
   transform: scale(1.1);

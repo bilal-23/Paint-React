@@ -1,4 +1,4 @@
-import classes from './spinner.module.css';
+import classes from './Spinner.module.css';
 
 function Spinner() {
     return (

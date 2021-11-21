@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { signIn } from 'next-auth/client'
+import { getSession } from "next-auth/client";
 import { useRouter } from 'next/router';
 import Button from "../components/Button";
 import Navbar from '../components/Navbar';
@@ -35,8 +36,8 @@ export default function Auth() {
     }
     // Reset input fields
     function resetInputFields() {
-        emailRef.current.value = "";
-        passwordRef.current.value = "";
+        emailRef?.current?.value = "";
+        passwordRef.current?.value = "";
     }
 
 
@@ -71,7 +72,7 @@ export default function Auth() {
             if (!result.error) {
                 resetInputFields();
                 SetSuccess('Logged In');
-                // router.replace('/account');
+                router.replace('/account');
             } else {
                 throw new Error(result.error);
             }
@@ -142,4 +143,21 @@ export default function Auth() {
         </>
 
     )
+}
+
+export async function getServerSideProps(context) {
+    const session = await getSession({ req: context.req })
+
+    if (session) {
+        return {
+            redirect: {
+                destination: '/account',
+                permanent: false
+            }
+        };
+    }
+
+    return {
+        props: { session },
+    }
 }
