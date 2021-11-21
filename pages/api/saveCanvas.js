@@ -1,4 +1,5 @@
 import { connectToDatabase } from '../../util/database'
+import { ObjectID } from 'bson';
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -7,8 +8,8 @@ export default async function handler(req, res) {
     }
     const path = req.body.path;
     const email = req.body.email;
-    const time = req.body.time;
     const name = req.body.name;
+    const id = req.body.id || false;
 
 
     //connecting to data
@@ -25,10 +26,21 @@ export default async function handler(req, res) {
 
     // save paths to db
     try {
+        let result;
         const db = client.db();
-        const result = await db.collection('canvasPaths').insertOne({ path: path, email: email, name: name, time: time });
+        // IF id then update
+        if (id) {
+            result = await db.collection('canvasPaths')
+                .updateOne(
+                    { _id: ObjectID(id), email: email },
+                    { $set: { name: name, timestamp: new Date(), path: path } }
+                )
+        } else {
+            result = await db.collection('canvasPaths').insertOne({ path: path, email: email, name: name, timestamp: new Date() });
+        }
         client.close();
         res.status(201).json({ message: 'Saved', error: null, result: result });
+
     }
     catch (error) {
         client.close();

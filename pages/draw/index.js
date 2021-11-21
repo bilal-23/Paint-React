@@ -7,6 +7,7 @@ import useWindowDimensions from "../../hooks/usewindowDimension";
 import classes from './draw.module.css';
 import AlertToaster from "../../components/AlertToaster";
 import Spinner from "../../components/Spinner";
+import { useRouter } from "next/router";
 
 export default function Draw() {
     const canvasRef = useRef();
@@ -24,6 +25,7 @@ export default function Draw() {
     const [success, SetSuccess] = useState(false);
     const [Spinnerloading, setSpinnerLoading] = useState(false);
     const [session, loading] = useSession();
+    const router = useRouter();
 
     //Set canvas width according to window width
     useEffect(() => {
@@ -83,7 +85,7 @@ export default function Draw() {
             const path = await canvasRef.current.exportPaths()
             const res = await fetch('/api/saveCanvas', {
                 method: 'POST',
-                body: JSON.stringify({ email: session.user.email, path: path, name: canvasName, time: new Date() }),
+                body: JSON.stringify({ email: session.user.email, path: path, name: canvasName, }),
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -92,6 +94,8 @@ export default function Draw() {
             const data = await res.json();
             SetSuccess(data.message);
             setSpinnerLoading(false);
+            router.replace(`draw/${data.result.insertedId}`)
+
         }
         catch (error) {
             setError(error.error || 'Something went wrong')

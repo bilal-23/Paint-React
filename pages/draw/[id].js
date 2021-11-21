@@ -62,8 +62,11 @@ export default function DrawItem(props) {
 
     // LOAD CANVAS PATHS\
     useEffect(() => {
-        const path = (project[0].path)
-        canvasRef.current.loadPaths(path);
+        if (project[0]) {
+            const path = (project[0].path)
+            canvasRef.current.loadPaths(path);
+            setCanvasName(project[0].name)
+        }
     }, [])
 
     //Unmount toaster
@@ -283,6 +286,15 @@ export async function getServerSideProps(context) {
         try {
             const db = client.db();
             project = await db.collection('canvasPaths').find({ email: session.user.email, _id: ObjectID(id) }).sort({ timestamp: -1 }).toArray();
+            // Project does not exist, occur when someone tries to access with different id
+            if (!project[0]) {
+                return {
+                    redirect: {
+                        destination: '/draw',
+                        permanent: false
+                    }
+                }
+            }
             client.close();
             return {
                 props: { project: JSON.stringify(project) },

@@ -27,7 +27,7 @@ export default function Account(props) {
                     <img src="./add.png" alt="Add new Project" /></p>
             </div>
             <div className={classes.user_art_list}>
-                {projects?.map(item => <ProjectItem key={item._id} id={item._id} name={item.name} time={item.time} />)}
+                {projects?.map(item => <ProjectItem key={item._id} id={item._id} name={item.name} timestamp={item.timestamp} />)}
             </div>
         </>
     )

@@ -5,10 +5,10 @@ const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
 ];
 
-export default function ProjectItem({ name, time, id }) {
+export default function ProjectItem({ name, timestamp, id }) {
     const router = useRouter();
 
-    const newDate = new Date(time);
+    const newDate = new Date(timestamp);
     const month = monthNames[newDate.getMonth()];
     const date = newDate.getDate();
     const hour = newDate.getHours();
