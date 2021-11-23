@@ -201,9 +201,11 @@ export default function DrawItem(props) {
                             <img src="/redo.png" alt="Redo" onClick={canvasHandler.bind(null, 'redo')} />
 
                             {!eraserMode && <img src="/eraser.png" alt="Erase Canvas" onClick={activateEraserHandler} />}
-                            {eraserMode && <img src="/eraser-active.png" alt="Erase Canvas" onClick={activateEraserHandler} />}
+                            {eraserMode && <img src="/eraser-active.png" alt="Erase Canvas" onClick={activateEraserHandler}
+                                className={classes.active} />}
                             {eraserMode && <img src="/paintbrush.png" alt="Erase Canvas" onClick={deactivateEraserHandler} />}
-                            {!eraserMode && <img src="/paintbrush-active.png" alt="Erase Canvas" onClick={deactivateEraserHandler} />}
+                            {!eraserMode && <img src="/paintbrush-active.png" alt="Erase Canvas" onClick={deactivateEraserHandler}
+                                style={{ background: strokeColor }} />}
 
                             {/* CLEAR CANVAS */}
                             <img src="/clear.png" alt="Clear Canvas" onClick={canvasHandler.bind(null, 'clear')} />
@@ -239,6 +241,10 @@ export default function DrawItem(props) {
                         <div className={classes.canvas_control_group}>
                             <label htmlFor="strokeColor">Stroke Color :</label>
                             <input id="strokeColor" type="color" value={strokeColor} onChange={(e) => changeCanvasProps(e, 'strokeColor')} />
+                            <span className={classes.color} style={{ background: 'red' }} onClick={(e) => setStrokeColor('#ff0000')}></span>
+                            <span className={classes.color} style={{ background: 'blue' }} onClick={(e) => setStrokeColor('#0000ff')}></span>
+                            <span className={classes.color} style={{ background: 'green' }} onClick={(e) => setStrokeColor('#008000')}></span>
+                            <span className={classes.color} style={{ background: 'yellow' }} onClick={(e) => setStrokeColor('#ffff00')}></span>
                         </div>
                         <div className={`${classes.canvas_control_group} ${classes.canvas_control_export}`}>
                             <label htmlFor="export"> Export as: </label>

@@ -66,10 +66,15 @@
 .undo_redo_clear img {
   width: 3rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease;
+  border-radius: 5px;
 }
 .undo_redo_clear img:active {
   transform: scale(1.1);
+  background-color: rgb(221, 117, 117);
+}
+.active {
+  background-color: rgb(221, 117, 117);
 }
 .controls {
   width: 100%;
@@ -100,8 +105,9 @@
   min-width: 20%;
 }
 .range {
-  width: 70%;
+  width: 70% !important;
 }
+
 .range_value {
   display: flex;
   justify-content: center;
@@ -117,7 +123,28 @@
   height: 5rem;
   width: 5rem;
 }
-
+.canvas_control_color_group {
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.canvas_control_color_group > input {
+  width: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  color: #008000;
+}
+.color {
+  width: 3rem;
+  border-radius: 50%;
+  height: 3rem;
+  cursor: pointer;
+  opacity: 0.9;
+}
+.color:active {
+  opacity: 1;
+}
 /* .range::-webkit-slider-runnable-track {
   background-color: thistle;
   height: 5px;

@@ -123,7 +123,7 @@ export default function Draw() {
 
 
     // WIDTH COLOR and other stuff
-    function changeCanvasProps(e, property) {
+    function changeCanvasProps(e, property, value) {
         switch (property) {
             case 'strokeWidth':
                 setStrokWidth(e.target.value);
@@ -136,6 +136,9 @@ export default function Draw() {
                 break;
             case 'canvasColor':
                 setCanvasColor(e.target.value);
+                break;
+            case 'presetColor':
+                setCanvasColor(value);
                 break;
         }
     }
@@ -193,9 +196,9 @@ export default function Draw() {
                             <img src="./redo.png" alt="Redo" onClick={canvasHandler.bind(null, 'redo')} />
 
                             {!eraserMode && <img src="./eraser.png" alt="Erase Canvas" onClick={activateEraserHandler} />}
-                            {eraserMode && <img src="./eraser-active.png" alt="Erase Canvas" onClick={activateEraserHandler} />}
+                            {eraserMode && <img src="./eraser-active.png" alt="Erase Canvas" onClick={activateEraserHandler} className={classes.active} />}
                             {eraserMode && <img src="./paintbrush.png" alt="Erase Canvas" onClick={deactivateEraserHandler} />}
-                            {!eraserMode && <img src="./paintbrush-active.png" alt="Erase Canvas" onClick={deactivateEraserHandler} />}
+                            {!eraserMode && <img src="./paintbrush-active.png" alt="Erase Canvas" onClick={deactivateEraserHandler} className={classes.active} />}
 
                             {/* CLEAR CANVAS */}
                             <img src="./clear.png" alt="Clear Canvas" onClick={canvasHandler.bind(null, 'clear')} />
@@ -228,9 +231,13 @@ export default function Draw() {
                             <input id="eraserWidth" type="range" min="1" max="20" step="1" value={eraserWidth} onChange={(e) => changeCanvasProps(e, 'eraserWidth')} className={classes.range} />
                             <span className={classes.range_value}>{eraserWidth}</span>
                         </div>
-                        <div className={classes.canvas_control_group}>
+                        <div className={`${classes.canvas_control_group} ${classes.canvas_control_color_group}`}>
                             <label htmlFor="strokeColor">Stroke Color :</label>
                             <input id="strokeColor" type="color" value={strokeColor} onChange={(e) => changeCanvasProps(e, 'strokeColor')} />
+                            <span className={classes.color} style={{ background: 'red' }} onClick={(e) => setStrokeColor('#ff0000')}></span>
+                            <span className={classes.color} style={{ background: 'blue' }} onClick={(e) => setStrokeColor('#0000ff')}></span>
+                            <span className={classes.color} style={{ background: 'green' }} onClick={(e) => setStrokeColor('#008000')}></span>
+                            <span className={classes.color} style={{ background: 'yellow' }} onClick={(e) => setStrokeColor('#ffff00')}></span>
                         </div>
                         <div className={`${classes.canvas_control_group} ${classes.canvas_control_export}`}>
                             <label htmlFor="export"> Export as: </label>
