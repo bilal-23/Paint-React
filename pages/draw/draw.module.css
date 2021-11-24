@@ -71,7 +71,8 @@
 }
 .undo_redo_clear img:active {
   transform: scale(1.1);
-  background-color: rgb(221, 117, 117);
+  /* background-color: rgb(221, 117, 117); */
+  background-color: #ff000063;
 }
 .active {
   background-color: rgb(221, 117, 117);

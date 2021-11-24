@@ -26,7 +26,6 @@ export default function Draw() {
     const [Spinnerloading, setSpinnerLoading] = useState(false);
     const [session, loading] = useSession();
     const router = useRouter();
-
     //Set canvas width according to window width
     useEffect(() => {
         const width = dimensions?.width;
@@ -182,7 +181,9 @@ export default function Draw() {
             <Navbar />
             <div className={classes.canvas_name}>
                 {!editName && <span>{canvasName}</span>}
+
                 <input type="text" ref={canvasNameRef} placeholder="Enter Name" style={{ visibility: `${editName ? 'visible' : 'hidden'}`, display: `${editName ? 'block' : 'none'}` }} ></input>
+
                 {!editName && <img src="./edit.png" alt="Edit" onClick={() => { setEditName(true); canvasNameRef.current.focus() }} />}
                 {editName && <img src="./savename.png" alt="Save" onClick={() => updateName()} />}
             </div>
@@ -196,9 +197,9 @@ export default function Draw() {
                             <img src="./redo.png" alt="Redo" onClick={canvasHandler.bind(null, 'redo')} />
 
                             {!eraserMode && <img src="./eraser.png" alt="Erase Canvas" onClick={activateEraserHandler} />}
-                            {eraserMode && <img src="./eraser-active.png" alt="Erase Canvas" onClick={activateEraserHandler} className={classes.active} />}
+                            {eraserMode && <img src="./eraser-active.png" alt="Erase Canvas" onClick={activateEraserHandler} />}
                             {eraserMode && <img src="./paintbrush.png" alt="Erase Canvas" onClick={deactivateEraserHandler} />}
-                            {!eraserMode && <img src="./paintbrush-active.png" alt="Erase Canvas" onClick={deactivateEraserHandler} className={classes.active} />}
+                            {!eraserMode && <img src="./paintbrush-active.png" alt="Erase Canvas" onClick={deactivateEraserHandler} className={classes.active} style={{ background: strokeColor }} />}
 
                             {/* CLEAR CANVAS */}
                             <img src="./clear.png" alt="Clear Canvas" onClick={canvasHandler.bind(null, 'clear')} />
@@ -244,12 +245,13 @@ export default function Draw() {
                             <Button onClick={downloadCanvas.bind(null, 'png')}>PNG</Button>
                             {/* <Button onClick={downloadCanvas.bind(null, 'svg')}>SVG</Button> */}
                         </div>
-                        <div className={`${classes.canvas_control_group} ${classes.reset_canvas}`}>
-                            <Button reset={true} onClick={canvasHandler.bind(null, 'reset')}>Reset Canvas</Button>
-                        </div>
                         {session && <div className={`${classes.canvas_control_group} ${classes.save_canvas}`}>
                             <Button saveToDB={true} onClick={saveToDB}>Save</Button>
                         </div>}
+                        <div className={`${classes.canvas_control_group} ${classes.reset_canvas}`}>
+                            <Button reset={true} onClick={canvasHandler.bind(null, 'reset')}>Reset Canvas</Button>
+                        </div>
+
                     </div>
                 </div>
             </div>

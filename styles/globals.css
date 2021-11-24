@@ -9,6 +9,7 @@
 html {
   font-size: 62.5%;
 }
+
 body {
   font-family: "Poppins", sans-serif;
   background-color: rgba(255, 255, 255, 0.404);
@@ -110,4 +111,14 @@ input[type="range"]:focus::-ms-fill-lower {
 }
 input[type="range"]:focus::-ms-fill-upper {
   background: #ff96ab;
+}
+@media only screen and (max-width: 900px) {
+  html {
+    font-size: 55%;
+  }
+}
+@media only screen and (max-width: 600px) {
+  html {
+    font-size: 50%;
+  }
 }

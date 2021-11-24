@@ -202,7 +202,7 @@ export default function DrawItem(props) {
 
                             {!eraserMode && <img src="/eraser.png" alt="Erase Canvas" onClick={activateEraserHandler} />}
                             {eraserMode && <img src="/eraser-active.png" alt="Erase Canvas" onClick={activateEraserHandler}
-                                className={classes.active} />}
+                            />}
                             {eraserMode && <img src="/paintbrush.png" alt="Erase Canvas" onClick={deactivateEraserHandler} />}
                             {!eraserMode && <img src="/paintbrush-active.png" alt="Erase Canvas" onClick={deactivateEraserHandler}
                                 style={{ background: strokeColor }} />}
@@ -251,12 +251,12 @@ export default function DrawItem(props) {
                             <Button onClick={downloadCanvas.bind(null, 'png')}>PNG</Button>
                             {/* <Button onClick={downloadCanvas.bind(null, 'svg')}>SVG</Button> */}
                         </div>
-                        <div className={`${classes.canvas_control_group} ${classes.reset_canvas}`}>
-                            <Button reset={true} onClick={canvasHandler.bind(null, 'reset')}>Reset Canvas</Button>
-                        </div>
                         {session && <div className={`${classes.canvas_control_group} ${classes.save_canvas}`}>
                             <Button saveToDB={true} onClick={saveToDB}>Save</Button>
                         </div>}
+                        <div className={`${classes.canvas_control_group} ${classes.reset_canvas}`}>
+                            <Button reset={true} onClick={canvasHandler.bind(null, 'reset')}>Reset Canvas</Button>
+                        </div>
                     </div>
                 </div>
             </div>

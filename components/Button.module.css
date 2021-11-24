@@ -73,7 +73,14 @@
 .auth_btn:hover span {
   color: white !important;
 }
-
+.saveDB {
+  width: 100%;
+  background-color: rgb(66, 221, 66);
+  border: none;
+}
+.saveDB span {
+  color: white !important;
+}
 @keyframes bn54rotate {
   0% {
     transform: rotate(0deg) translate3d(0, 0, 0);
