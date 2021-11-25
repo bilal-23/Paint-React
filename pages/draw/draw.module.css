@@ -40,6 +40,7 @@
   flex-direction: column;
   justify-content: center;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 .controls_group {
   user-select: none;

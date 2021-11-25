@@ -92,7 +92,6 @@ export default function Draw() {
 
             const data = await res.json();
             SetSuccess(data.message);
-            setSpinnerLoading(false);
             router.replace(`draw/${data.result.insertedId}`)
 
         }
@@ -246,7 +245,7 @@ export default function Draw() {
                             {/* <Button onClick={downloadCanvas.bind(null, 'svg')}>SVG</Button> */}
                         </div>
                         {session && <div className={`${classes.canvas_control_group} ${classes.save_canvas}`}>
-                            <Button saveToDB={true} onClick={saveToDB}>Save</Button>
+                            <Button saveToDB={true} onClick={saveToDB} disable={Spinnerloading && true}>Save</Button>
                         </div>}
                         <div className={`${classes.canvas_control_group} ${classes.reset_canvas}`}>
                             <Button reset={true} onClick={canvasHandler.bind(null, 'reset')}>Reset Canvas</Button>

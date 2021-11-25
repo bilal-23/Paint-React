@@ -4,7 +4,8 @@ import { ReactSketchCanvas } from 'react-sketch-canvas';
 const CanvasReact = forwardRef((props, ref) => {
     const styles = {
         border: '2px solid gray',
-        borderRadius: '3px'
+        borderRadius: '3px',
+        '-webkit-tap-highlight-color': 'transparent'
     };
     return (
         <ReactSketchCanvas
