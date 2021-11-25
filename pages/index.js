@@ -12,7 +12,7 @@ export default function Home() {
             but what you make others see.</p>
         </div>
         <div>
-          <img src="/draw.png" alt="" />
+          <img src="https://raw.githubusercontent.com/bilal-23/Paint-React/main/public/Draw.png" alt="" />
         </div>
       </section>
       <div className={classes.hero_bg}>
