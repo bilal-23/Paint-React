@@ -12,7 +12,7 @@ export default function Home() {
             but what you make others see.</p>
         </div>
         <div>
-          <img src="/screenshots/draw.png" alt="" />
+          <img src="/draw.png" alt="" />
         </div>
       </section>
       <div className={classes.hero_bg}>
