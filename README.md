@@ -55,7 +55,8 @@ Using NPM:
 $ npm install
 
 # Start development server
-$ npm start
+$ npm run dev
+
 ```
 
 Once your server has started, go to this url `http://localhost:3000/` and you will see the website running on a Development Server.
