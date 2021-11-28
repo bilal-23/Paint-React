@@ -1,8 +1,9 @@
+import React from 'react';
 import classes from './Navbar.module.css';
 import Link from 'next/link'
 import { signout, signOut, useSession } from 'next-auth/client'
 
-export default function Navbar(props) {
+const Navbar = React.forwardRef((props) => {
     const [session, loading] = useSession();
 
     return (
@@ -27,4 +28,7 @@ export default function Navbar(props) {
 
         </header>
     )
-}
+})
+
+export default Navbar;
+Navbar.displayName = "navbar"
