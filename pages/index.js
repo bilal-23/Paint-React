@@ -30,8 +30,8 @@ export default function Home() {
           <img ref={imageRef} src="https://raw.githubusercontent.com/bilal-23/Paint-React/main/public/Draw.png" alt="" />
         </div>
       </section>
-      <div className={classes.hero_bg}>
-        <video ref={backgroundRef} src="/art-bg.mp4" autoPlay muted loop></video>
+      <div ref={backgroundRef} className={classes.hero_bg}>
+        <video src="/art-bg.mp4" autoPlay muted loop></video>
       </div>
       <section className={classes.features}>
         <div >
