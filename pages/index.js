@@ -1,22 +1,36 @@
+import gsap from "gsap";
+import { useEffect, useRef } from "react";
 import Navbar from "../components/Navbar";
 import classes from './index.module.css'
 
 export default function Home() {
+  const headingRef = useRef(null);
+  const subHeadingRef = useRef(null);
+  const imageRef = useRef(null);
+  const backgroundRef = useRef(null);
+
+  useEffect(() => {
+    let timeline = gsap.timeline();
+    timeline.from(backgroundRef.current, { duration: 1, scale: 2, zIndex: 100 })
+      .fromTo(headingRef.current, { y: "100px", opacity: 0, duration: '1' }, { y: '-10px', opacity: 1 })
+      .from(subHeadingRef.current, { opacity: 0, y: '10px' })
+      .from(imageRef.current, { opacity: 0, scale: 0.5, y: '100px' })
+  }, [])
   return (
     <>
       <Navbar home={true} />
       <section className={classes.hero}>
         <div>
-          <h1>Unleash your creativity !</h1>
-          <p>Art is not what you see,
+          <h1 ref={headingRef}>Unleash your creativity !</h1>
+          <p ref={subHeadingRef}>Art is not what you see,
             but what you make others see.</p>
         </div>
         <div>
-          <img src="https://raw.githubusercontent.com/bilal-23/Paint-React/main/public/Draw.png" alt="" />
+          <img ref={imageRef} src="https://raw.githubusercontent.com/bilal-23/Paint-React/main/public/Draw.png" alt="" />
         </div>
       </section>
       <div className={classes.hero_bg}>
-        <video src="/art-bg.mp4" autoPlay muted loop></video>
+        <video ref={backgroundRef} src="/art-bg.mp4" autoPlay muted loop></video>
       </div>
       <section className={classes.features}>
         <div >

@@ -16,6 +16,7 @@
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@mui/material": "^5.2.0",
     "bcryptjs": "^2.4.3",
+    "gsap": "^3.8.0",
     "mongodb": "^4.2.0",
     "next": "12.0.4",
     "next-auth": "^3.29.0",
