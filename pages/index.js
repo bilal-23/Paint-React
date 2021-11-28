@@ -9,17 +9,19 @@ export default function Home() {
   const imageRef = useRef(null);
   const backgroundRef = useRef(null);
   const sectionRef = useRef(null);
+  const navbarRef = useRef(null);
 
   useEffect(() => {
     let timeline = gsap.timeline();
-    timeline.from(sectionRef.current, { opacity: 0 }).from(backgroundRef.current, { duration: 1, scale: 1.5, zIndex: 2 })
-      .fromTo(headingRef.current, { y: "100px", opacity: 0, duration: '1' }, { y: '-10px', opacity: 1 })
+    timeline.from(sectionRef.current, { opacity: 0 }).from(backgroundRef.current, { duration: 1, scale: 0.5, zIndex: 1, duration: 1 })
+      .from(navbarRef.current, { opacity: 0 })
+      .fromTo(headingRef.current, { y: "100px", opacity: 0, duration: '1', delay: 1 }, { y: '-10px', opacity: 1 })
       .from(subHeadingRef.current, { opacity: 0, y: '10px' })
       .from(imageRef.current, { opacity: 0, scale: 0.5, y: '100px' })
   }, [])
   return (
     <>
-      <Navbar home={true} />
+      <Navbar ref={navbarRef} home={true} />
       <section className={classes.hero} ref={sectionRef}>
         <div>
           <h1 ref={headingRef}>Unleash your creativity !</h1>

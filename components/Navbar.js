@@ -3,11 +3,11 @@ import classes from './Navbar.module.css';
 import Link from 'next/link'
 import { signout, signOut, useSession } from 'next-auth/client'
 
-const Navbar = React.forwardRef((props) => {
+const Navbar = React.forwardRef((props, ref) => {
     const [session, loading] = useSession();
 
     return (
-        <header className={classes.header} style={{ background: `${props.home && 'linear-gradient(to bottom, rgba(255,255,255,1),transparent)'}` }}>
+        <header ref={ref} className={classes.header} style={{ background: `${props.home && 'linear-gradient(to bottom, rgba(255,255,255,1),transparent)'}` }}>
             <div className={classes.left}>
                 <img src="/logo.png" alt="Draw" />
                 <h1>Remíza</h1>
